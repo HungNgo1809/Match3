@@ -23,6 +23,8 @@ public class BoardController : MonoBehaviour
 
     private GameSettings m_gameSettings;
 
+    private SkinConfig m_skinConfig;
+
     private List<Cell> m_potentialMatch;
 
     private float m_timeAfterFill;
@@ -31,17 +33,19 @@ public class BoardController : MonoBehaviour
 
     private bool m_gameOver;
 
-    public void StartGame(GameManager gameManager, GameSettings gameSettings)
+    public void StartGame(GameManager gameManager, GameSettings gameSettings, SkinConfig skinConfig)
     {
         m_gameManager = gameManager;
 
         m_gameSettings = gameSettings;
 
+        m_skinConfig = skinConfig;
+
         m_gameManager.StateChangedAction += OnGameStateChange;
 
         m_cam = Camera.main;
 
-        m_board = new Board(this.transform, gameSettings);
+        m_board = new Board(this.transform, gameSettings, skinConfig);
 
         Fill();
     }
