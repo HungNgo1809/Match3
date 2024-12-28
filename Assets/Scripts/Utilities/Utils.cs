@@ -24,4 +24,19 @@ public class Utils
 
         return result;
     }
+    public static NormalItem.eNormalType GetTypeExceptAndByCount(NormalItem.eNormalType[] types, Dictionary<NormalItem.eNormalType, int> counts)
+    {
+        List<NormalItem.eNormalType> list = Enum.GetValues(typeof(NormalItem.eNormalType)).Cast<NormalItem.eNormalType>().Except(types).ToList();
+
+        foreach(var val in counts)
+        {
+            if (!list.Contains(val.Key))
+                continue;
+            return val.Key;
+        }
+
+        int rnd = URandom.Range(0, list.Count);
+        NormalItem.eNormalType result = list[rnd];
+        return result;
+    }
 }

@@ -198,7 +198,41 @@ public class Board
 
                 NormalItem item = new NormalItem();
 
-                item.SetType(Utils.GetRandomNormalType());
+                List<NormalItem.eNormalType> types = new List<NormalItem.eNormalType>();
+                if (cell.NeighbourBottom != null)
+                {
+                    NormalItem nitem = cell.NeighbourBottom.Item as NormalItem;
+                    if (nitem != null)
+                    {
+                        types.Add(nitem.ItemType);
+                    }
+                }
+                if (cell.NeighbourLeft != null)
+                {
+                    NormalItem nitem = cell.NeighbourLeft.Item as NormalItem;
+                    if (nitem != null)
+                    {
+                        types.Add(nitem.ItemType);
+                    }
+                }
+                if (cell.NeighbourRight != null)
+                {
+                    NormalItem nitem = cell.NeighbourRight.Item as NormalItem;
+                    if (nitem != null)
+                    {
+                        types.Add(nitem.ItemType);
+                    }
+                }
+                if (cell.NeighbourUp != null)
+                {
+                    NormalItem nitem = cell.NeighbourUp.Item as NormalItem;
+                    if (nitem != null)
+                    {
+                        types.Add(nitem.ItemType);
+                    }
+                }
+
+                item.SetType(Utils.GetTypeExceptAndByCount(types.ToArray(), CountNormalItemsOnBoard()));
                 item.SetView(m_skinConfig);
                 item.SetViewRoot(m_root);
 
@@ -207,7 +241,28 @@ public class Board
             }
         }
     }
+    private Dictionary<NormalItem.eNormalType, int> CountNormalItemsOnBoard()
+    {
+        Dictionary<NormalItem.eNormalType, int> result = new Dictionary<NormalItem.eNormalType, int>();
 
+        for(int x = 0; x < boardSizeX; x++)
+        {
+            for(int y = 0; y < boardSizeY; y++)
+            {
+                Cell cell = m_cells[x, y];
+                if (cell.IsEmpty || !(cell.Item is NormalItem)) 
+                    continue;
+
+                NormalItem normalItem = cell.Item as NormalItem;
+                NormalItem.eNormalType type = normalItem.ItemType;
+                if (!result.ContainsKey(type))
+                    result.Add(type, 0);
+                result[type]++;
+            }
+        }
+
+        return result.OrderBy(kv => kv.Value).ToDictionary(kv => kv.Key, kv => kv.Value);
+    }
     internal void ExplodeAllItems()
     {
         for (int x = 0; x < boardSizeX; x++)
