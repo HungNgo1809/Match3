@@ -232,7 +232,8 @@ public class Board
                     }
                 }
 
-                item.SetType(Utils.GetTypeExceptAndByCount(types.ToArray(), CountNormalItemsOnBoard()));
+                //item.SetType(Utils.GetTypeExceptAndByCount(types.ToArray(), CountNormalItemsOnBoard()));
+                item.SetType(Utils.GetRandomNormalTypeExcept(types.ToArray()));
                 item.SetView(m_skinConfig);
                 item.SetViewRoot(m_root);
 

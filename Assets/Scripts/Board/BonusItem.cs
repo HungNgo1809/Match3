@@ -19,28 +19,19 @@ public class BonusItem : Item
     {
         ItemType = type;
     }
-
+    public override void SetView(SkinConfig skinConfig)
+    {
+        base.SetView(skinConfig);
+        View.GetComponent<SpriteRenderer>().sprite = skinConfig.skins[skinConfig.curSkin].bonusIcons[(int)ItemType];
+    }
     protected override string GetPrefabName()
     {
-        string prefabname = string.Empty;
-        switch (ItemType)
-        {
-            case eBonusType.NONE:
-                break;
-            case eBonusType.HORIZONTAL:
-                prefabname = Constants.PREFAB_BONUS_HORIZONTAL;
-                break;
-            case eBonusType.VERTICAL:
-                prefabname = Constants.PREFAB_BONUS_VERTICAL;
-                break;
-            case eBonusType.ALL:
-                prefabname = Constants.PREFAB_BONUS_BOMB;
-                break;
-        }
-
-        return prefabname;
+        return Constants.BONUS_ITEM_NAME + "_" + ItemType.ToString();
     }
-
+    protected override string GetPrefabPath()
+    {
+        return Constants.PREFAB_BONUS;
+    }
     internal override bool IsSameType(Item other)
     {
         BonusItem it = other as BonusItem;

@@ -27,7 +27,6 @@ public class Utils
     public static NormalItem.eNormalType GetTypeExceptAndByCount(NormalItem.eNormalType[] types, Dictionary<NormalItem.eNormalType, int> counts)
     {
         List<NormalItem.eNormalType> list = Enum.GetValues(typeof(NormalItem.eNormalType)).Cast<NormalItem.eNormalType>().Except(types).ToList();
-
         foreach(var val in counts)
         {
             if (!list.Contains(val.Key))

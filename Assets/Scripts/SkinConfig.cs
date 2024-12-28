@@ -12,4 +12,5 @@ public class SkinConfig : ScriptableObject
 public class Skin
 {
     public List<Sprite> icons;
+    public List<Sprite> bonusIcons;
 }

@@ -15,10 +15,11 @@ public class Item
     public virtual void SetView(SkinConfig skinConfig = null)
     {
         string prefabname = GetPrefabName();
+        string prefabPath = GetPrefabPath();
 
         if (!string.IsNullOrEmpty(prefabname))
         {
-            GameObject prefab = Resources.Load<GameObject>(prefabname);
+            GameObject prefab = Resources.Load<GameObject>(prefabPath);
             if (prefab)
             {
                 View = GameObject.Instantiate(prefab).transform;   
@@ -27,6 +28,7 @@ public class Item
     }
 
     protected virtual string GetPrefabName() { return string.Empty; }
+    protected virtual string GetPrefabPath() { return string.Empty; }
 
     public virtual void SetCell(Cell cell)
     {

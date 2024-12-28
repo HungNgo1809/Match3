@@ -28,6 +28,10 @@ public class NormalItem : Item
     }
     protected override string GetPrefabName()
     {
+        return Constants.NORMAL_ITEM_NAME + "_" + ItemType.ToString();
+    }
+    protected override string GetPrefabPath()
+    {
         return Constants.PREFAB_NORMAL;
     }
 
