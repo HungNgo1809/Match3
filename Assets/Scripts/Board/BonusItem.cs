@@ -19,9 +19,9 @@ public class BonusItem : Item
     {
         ItemType = type;
     }
-    public override void SetView(SkinConfig skinConfig)
+    public override void SetView(SkinConfig skinConfig, GameObject prefab = null)
     {
-        base.SetView(skinConfig);
+        base.SetView(skinConfig, prefab);
         View.GetComponent<SpriteRenderer>().sprite = skinConfig.skins[skinConfig.curSkin].bonusIcons[(int)ItemType];
     }
     protected override string GetPrefabName()

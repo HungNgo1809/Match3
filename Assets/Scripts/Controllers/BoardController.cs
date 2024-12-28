@@ -34,7 +34,7 @@ public class BoardController : MonoBehaviour
     private bool m_gameOver;
 
     private BoardState boardState = null;
-    public void StartGame(GameManager gameManager, GameSettings gameSettings, SkinConfig skinConfig)
+    public void StartGame(GameManager gameManager, GameSettings gameSettings, SkinConfig skinConfig, GameObject normalPrefab, GameObject bonusPrefab)
     {
         m_gameManager = gameManager;
 
@@ -46,7 +46,7 @@ public class BoardController : MonoBehaviour
 
         m_cam = Camera.main;
 
-        m_board = new Board(this.transform, gameSettings, skinConfig);
+        m_board = new Board(this.transform, gameSettings, skinConfig, normalPrefab, bonusPrefab);
 
         Fill();
 

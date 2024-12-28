@@ -12,18 +12,18 @@ public class Item
     public Transform View { get; private set; }
 
 
-    public virtual void SetView(SkinConfig skinConfig = null)
+    public virtual void SetView(SkinConfig skinConfig = null, GameObject prefab = null)
     {
         string prefabname = GetPrefabName();
         string prefabPath = GetPrefabPath();
 
-        if (!string.IsNullOrEmpty(prefabname))
+        if (!prefab)
+            prefab = Resources.Load<GameObject>(prefabPath);
+
+        if (prefab)
         {
-            GameObject prefab = Resources.Load<GameObject>(prefabPath);
-            if (prefab)
-            {
-                View = GameObject.Instantiate(prefab).transform;   
-            }
+            View = GameObject.Instantiate(prefab).transform;
+            View.name = prefabname;
         }
     }
 

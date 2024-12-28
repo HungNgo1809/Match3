@@ -46,6 +46,9 @@ public class GameManager : MonoBehaviour
 
     private LevelCondition m_levelCondition;
 
+    public GameObject normalBaseItemPrefab;
+    public GameObject bonusBaseItemPrefab;
+
     private void Awake()
     {
         State = eStateGame.SETUP;
@@ -54,6 +57,10 @@ public class GameManager : MonoBehaviour
         m_skinConfig = Resources.Load<SkinConfig>(Constants.SKIN_CONFIG_PATH);
 
         m_uiMenu = FindObjectOfType<UIMainManager>();
+
+        normalBaseItemPrefab = Resources.Load<GameObject>(Constants.PREFAB_NORMAL);
+        bonusBaseItemPrefab = Resources.Load<GameObject>(Constants.PREFAB_BONUS);
+
         m_uiMenu.Setup(this);
     }
 
@@ -86,7 +93,7 @@ public class GameManager : MonoBehaviour
     public void LoadLevel(eLevelMode mode)
     {
         m_boardController = new GameObject("BoardController").AddComponent<BoardController>();
-        m_boardController.StartGame(this, m_gameSettings, m_skinConfig);
+        m_boardController.StartGame(this, m_gameSettings, m_skinConfig, normalBaseItemPrefab, bonusBaseItemPrefab);
 
         if (mode == eLevelMode.MOVES)
         {

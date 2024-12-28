@@ -27,7 +27,10 @@ public class Board
 
     private SkinConfig m_skinConfig;
 
-    public Board(Transform transform, GameSettings gameSettings, SkinConfig skinConfig)
+    public GameObject normalBaseItemPrefab;
+    public GameObject bonusBaseItemPrefab;
+
+    public Board(Transform transform, GameSettings gameSettings, SkinConfig skinConfig, GameObject normalPrefab, GameObject bonusPrefab)
     {
         m_root = transform;
 
@@ -38,6 +41,9 @@ public class Board
 
         m_cells = new Cell[boardSizeX, boardSizeY];
         m_skinConfig = skinConfig;
+
+        normalBaseItemPrefab = normalPrefab;
+        bonusBaseItemPrefab = bonusPrefab;
 
         CreateBoard();
     }
@@ -85,7 +91,7 @@ public class Board
         {
             NormalItem item = new NormalItem();
             item.ItemType = (NormalItem.eNormalType)cellState.itemType;
-            item.SetView(m_skinConfig);
+            item.SetView(m_skinConfig, normalBaseItemPrefab);
             item.SetViewRoot(m_root);
 
             Cell cell = m_cells[cellState.x, cellState.y];
@@ -152,7 +158,7 @@ public class Board
                 }
 
                 item.SetType(Utils.GetRandomNormalTypeExcept(types.ToArray()));
-                item.SetView(m_skinConfig);
+                item.SetView(m_skinConfig, normalBaseItemPrefab);
                 item.SetViewRoot(m_root);
 
                 cell.Assign(item);
@@ -234,7 +240,7 @@ public class Board
 
                 //item.SetType(Utils.GetTypeExceptAndByCount(types.ToArray(), CountNormalItemsOnBoard()));
                 item.SetType(Utils.GetRandomNormalTypeExcept(types.ToArray()));
-                item.SetView(m_skinConfig);
+                item.SetView(m_skinConfig, normalBaseItemPrefab);
                 item.SetViewRoot(m_root);
 
                 cell.Assign(item);
@@ -389,7 +395,7 @@ public class Board
                 cellToConvert = matches[rnd];
             }
 
-            item.SetView(m_skinConfig);
+            item.SetView(m_skinConfig, bonusBaseItemPrefab);
             item.SetViewRoot(m_root);
 
             cellToConvert.Free();
