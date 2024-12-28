@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class LevelTime : LevelCondition
 {
     private float m_time;
+    private float displayTime;
 
     private GameManager m_mngr;
 
@@ -16,10 +17,10 @@ public class LevelTime : LevelCondition
         m_mngr = mngr;
 
         m_time = value;
+        displayTime = value;
 
         UpdateText();
     }
-
     private void Update()
     {
         if (m_conditionCompleted) return;
@@ -28,7 +29,11 @@ public class LevelTime : LevelCondition
 
         m_time -= Time.deltaTime;
 
-        UpdateText();
+        if(displayTime - m_time >= 1)
+        {
+            displayTime = m_time;
+            UpdateText();
+        }    
 
         if (m_time <= -1f)
         {
