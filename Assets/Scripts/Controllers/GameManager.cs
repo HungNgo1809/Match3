@@ -103,6 +103,10 @@ public class GameManager : MonoBehaviour
 
         State = eStateGame.GAME_STARTED;
     }
+    public void Replay()
+    {
+        m_boardController.ReplayGame();
+    }
 
     public void GameOver()
     {

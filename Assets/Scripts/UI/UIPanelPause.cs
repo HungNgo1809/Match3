@@ -7,12 +7,14 @@ using UnityEngine.UI;
 public class UIPanelPause : MonoBehaviour, IMenu
 {
     [SerializeField] private Button btnClose;
+    [SerializeField] private Button btnReplay;
 
     private UIMainManager m_mngr;
 
     private void Awake()
     {
         btnClose.onClick.AddListener(OnClickClose);
+        btnReplay.onClick.AddListener(OnClickClose);
     }
 
     private void OnDestroy()

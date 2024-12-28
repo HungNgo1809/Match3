@@ -33,6 +33,7 @@ public class BoardController : MonoBehaviour
 
     private bool m_gameOver;
 
+    private BoardState boardState = null;
     public void StartGame(GameManager gameManager, GameSettings gameSettings, SkinConfig skinConfig)
     {
         m_gameManager = gameManager;
@@ -48,6 +49,13 @@ public class BoardController : MonoBehaviour
         m_board = new Board(this.transform, gameSettings, skinConfig);
 
         Fill();
+
+        boardState = m_board.SaveBoard();
+    }
+    public void ReplayGame()
+    {
+        Clear();
+        m_board.LoadBoard(boardState);
     }
 
     private void Fill()

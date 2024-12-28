@@ -6,13 +6,13 @@ public class NormalItem : Item
 {
     public enum eNormalType
     {
-        TYPE_ONE,
-        TYPE_TWO,
-        TYPE_THREE,
-        TYPE_FOUR,
-        TYPE_FIVE,
-        TYPE_SIX,
-        TYPE_SEVEN
+        TYPE_ONE = 0,
+        TYPE_TWO = 1,
+        TYPE_THREE = 2,
+        TYPE_FOUR = 3,
+        TYPE_FIVE = 4,
+        TYPE_SIX = 5,
+        TYPE_SEVEN = 6
     }
 
     public eNormalType ItemType;

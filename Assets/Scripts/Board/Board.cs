@@ -72,9 +72,57 @@ public class Board
                 if (x > 0) m_cells[x, y].NeighbourLeft = m_cells[x - 1, y];
             }
         }
-
     }
+    internal void LoadBoard(BoardState boardState)
+    {
+        if(boardState == null)
+        {
+            return;
+        }
 
+        CreateBoard();
+        foreach (var cellState in boardState.cells)
+        {
+            NormalItem item = new NormalItem();
+            item.ItemType = (NormalItem.eNormalType)cellState.itemType;
+            item.SetView(m_skinConfig);
+            item.SetViewRoot(m_root);
+
+            Cell cell = m_cells[cellState.x, cellState.y];
+            cell.Assign(item);
+            cell.ApplyItemPosition(false);
+        }
+    }
+    internal BoardState SaveBoard()
+    {
+        BoardState state = new BoardState();
+        for(int x = 0; x < boardSizeX; x++)
+        {
+            for(int y = 0; y < boardSizeY; y++)
+            {
+                Cell cell = m_cells[x, y];
+                if(!cell.IsEmpty)
+                {
+                    int type = -1;
+                    if(cell.Item is NormalItem normalItem)
+                        type = (int)normalItem.ItemType;
+                    else if(cell.Item is BonusItem bonusItem)
+                        type = (int)bonusItem.ItemType;
+
+                    CellState cellState = new CellState
+                    {
+                        x = x,
+                        y = y,
+                        itemType = type
+                    };
+
+                    state.cells.Add(cellState);
+                }
+            }
+        }
+
+        return state;
+    }
     internal void Fill()
     {
         for (int x = 0; x < boardSizeX; x++)
@@ -677,4 +725,16 @@ public class Board
             }
         }
     }
+}
+[Serializable]
+public class BoardState
+{
+    public List<CellState> cells = new List<CellState>();
+}
+[Serializable]
+public class CellState
+{
+    public int x;
+    public int y;
+    public int itemType;
 }
